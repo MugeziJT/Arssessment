@@ -1,0 +1,211 @@
+#Code without deployment
+#14/06 Starting with task 1
+#15/06 Task 1 finished, 3 needs user input, 2 & 4 not started
+#16/06 Task 2 & 4 finished, user input added to 3. Need to build UI
+
+#print("Hello there")
+
+
+#Introduction
+def menu():
+   print ("""Which task would you like to check?
+    Please enter [1], [2], [3] or [4]
+    You can go back any time by entering [9]""")
+
+def greeting():
+
+    name = input("Please enter your name: ")
+    print ("""Hello, """ + name + """ :)
+    Which task would you like to check?""")
+    #menu()
+    return name
+
+
+#greeting()
+
+#Add code here to decide which function -- cannot add here due to functions
+#UI code at 165
+
+#Date(1)
+def date():
+    import calendar
+    import datetime
+    current_date = datetime.date.today()
+    first_day_of_month = datetime.date(current_date.year, current_date.month, 1)
+    last_day_of_month = datetime.date(current_date.year, current_date.month, calendar.monthrange(current_date.year, current_date.month)[1])
+
+    print("The first day of the month is: " +str(first_day_of_month))
+    print("The last day of the month will be: " + str(last_day_of_month))
+
+#date()
+
+
+
+
+#StringTest (2)
+
+#StringTest First attempt
+#for char in new_str:
+#    if char == string.ascii_letters:
+#        print(str(char))
+#    else:
+#        break
+
+#StringTest Second attempt
+#def split(word):    
+#    return [char for char in word]
+        
+    
+#word = input("Please enter your meal: ")
+#print(split(word))
+
+#String Test Third attempt - WORKING
+def string_test():    
+    word = input("Please enter your meal: ")
+    import re
+    word_split = re.sub("[^A-Za-z0-4]", "", word)
+    if word == '9':
+        false9 = input("Did you mean to go back? (y/n)")
+        if false9 == "y":
+            menu()
+        elif false9 == "n":
+            string_test()
+        else:
+            print ("Let's try that again.")
+            string_test()
+    
+    def split(word_split):
+        return[char for char in word_split]
+    print("This could look better...: " + str(split(word_split)))
+#string_test()
+
+
+#Player info (3)
+import operator
+ars_name = ["Kieran Tierney", "Ben White", "Thomas Partey", "Gabriel", "Bukayo Saka", "Martin Ødegaard"
+            , "Gabriel Martinelli", "Takehiro Tomiyasu", "Eddie Nketiah", "Aaron Ramsdale", "Granit Xhaka"]
+ars_age = [25, 24, 29, 24, 20, 23, 20, 23, 23, 24, 29] 
+ars_num = [3, 4, 5, 6, 7, 8, 11, 18, 30, 32, 34]
+
+ars_zip = zip(ars_name, ars_age, ars_num)
+    #convert zip to list
+ars_zip = list(ars_zip)
+    #print(ars_zip)
+
+    #sort by name
+def sort_name():
+    org_name = sorted(ars_zip, key = operator.itemgetter(0))
+    print("In name order: " + str(org_name))
+#sort_name()
+
+    #sort by age
+def sort_age():
+    org_age = sorted(ars_zip, key = operator.itemgetter(1))
+    print("In age order:" + str(org_age))
+#sort_age()
+
+    #sort by number
+def sort_num():
+    org_num = sorted(ars_zip, key = operator.itemgetter(2))
+    print("In shirt number order: " + str(org_num))
+#sort_num()
+
+#player_info()
+def player_info():
+    print("""Welcome to the Player Organisation page.
+    Please enter [1] to organise by Name.
+    Please enter [2] to organise by Age.
+    Please enter [3] to organise by Shirt Number.""")
+    def selection():
+        usr_input = input("Please select 1, 2, 3 or 9 if you're finished: ")
+        while (usr_input != '1') and (usr_input != '2') and (usr_input != '3') and (usr_input != '9'):
+            usr_input = input("Please select 1, 2 or 3: ")
+
+        if usr_input == '1':
+            sort_name()
+            selection()
+        elif usr_input == '2':
+            sort_age()
+            selection()
+        elif usr_input == '3':
+            sort_num()
+            selection()
+        elif usr_input == '9':
+            menu()
+    selection()
+#player_info()
+
+
+
+
+#TopScorerList (4)
+import operator
+
+#Lists names, goals, and combines lists.
+ars_name = ["Kieran Tierney", "Ben White", "Thomas Partey", "Gabriel", "Bukayo Saka", "Martin Ødegaard"
+            , "Gabriel Martinelli", "Takehiro Tomiyasu", "Eddie Nketiah", "Aaron Ramsdale", "Granit Xhaka"]
+ars_goal = [1, 0, 2, 5, 12, 7, 6, 0, 10, 0, 1]
+goal_zip = zip(ars_name, ars_goal)
+goal_zip = list(goal_zip)
+#print(goal_zip)
+
+#sorts list by goals scored
+org_goals = sorted(goal_zip, key = operator.itemgetter(1), reverse=True)
+#print(org_goals)
+
+
+ars_pos = ["Position 1", "Position 2", "Position 3", "Position 4", "Position 5", "Position 6", "Position 7",
+           "Position 8", "Position 9", "Position 10", "Position 11"]
+
+#Zip position to list
+def fin_pos():
+    pos_zip = zip (ars_pos, org_goals)
+    pos_zip = list(pos_zip)
+    print("The Top goal scorers this season are: " + str(pos_zip))
+
+
+#print(pos_zip)
+#^Wrong syntax in output
+
+#Merge both lists together
+
+#def merge(ars_pos, org_goals, offset):
+#    for i, element in enumerate(org_goals, 1):
+#        ars_pos.insert(i * offset - 1, element)
+#merge(ars_pos, org_goals, 2)
+
+#print(ars_pos)
+#^Wrong syntax again... But it does accomplish task...
+#Not sure how to call function, therefore using zip
+
+
+
+
+#UI Code
+def Main_UI():
+    greeting()
+    def selection():
+        usr_input = input("""
+    Please enter [1], [2], [3] or [4] to continue.
+
+        You can go back any time by entering [9]
+    : """)
+        while (usr_input != '1') and (usr_input != '2') and (usr_input != '3') and (usr_input != '4') and (usr_input != '9'):
+            usr_input = input("Please select 1, 2, 3 or 4: ")
+
+        if usr_input == '1':
+            date()
+            selection()
+        elif usr_input == '2':
+            string_test()
+            selection()
+        elif usr_input == '3':
+            player_info()
+            selection()
+        elif usr_input == '4':
+            fin_pos()
+            selection()
+        elif usr_input == '9':
+            selection()
+    selection()
+Main_UI()
